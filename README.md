@@ -1,6 +1,7 @@
 #gulp-codedeploy
 
 To use, create a task and pass options
+
     gulp.task('deploy', function () {
         return deploy('dist', {
             appName: "app-name",
