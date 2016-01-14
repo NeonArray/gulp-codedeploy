@@ -43,7 +43,7 @@ module.exports = function (directory, opt) {
       '--application-name ' + opt.appName,
       '--s3-location s3://' + opt.bucket + '/' + opt.subdir + opt.fileName,
       '--description "' + description + '"',
-      '--source ' + directory + ' > etc/' + uploadFileName
+      '--source ' + directory + ' > ' + uploadFileName
     ].join(' ');
 
     gutil.log("Executing: " + uploadCommand);
@@ -78,7 +78,7 @@ module.exports = function (directory, opt) {
     var groupName = (isProduction ? 'production' : 'development');
 
     // Parse the eTag from the file created by uploadDeployment
-    var etag = getTag('etc/' + uploadFileName);
+    var etag = getTag(uploadFileName);
 
     var deployCommand = [
       'aws deploy create-deployment ',
@@ -88,7 +88,7 @@ module.exports = function (directory, opt) {
       'eTag="' + etag + '" ',
       '--deployment-config-name CodeDeployDefault.OneAtATime ',
       '--deployment-group-name ' + groupName + ' ',
-      '--description "' + description + '" > etc/' + deployFileName,
+      '--description "' + description + '" > ' + deployFileName,
     ].join('');
 
     gutil.log("Executing: " + deployCommand);
@@ -103,7 +103,7 @@ module.exports = function (directory, opt) {
           }
 
           gutil.log("Deployment complete (resolving promise)");
-          resolve(getDeploymentId('etc/' + deployFileName));
+          resolve(getDeploymentId(deployFileName));
         }
       );
     })
