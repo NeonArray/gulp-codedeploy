@@ -13,9 +13,9 @@ module.exports = function (directory, opt) {
 
   var isProduction = !!(argv.production);
   var description = argv.description;
-  var uploadFileName = 'gulp-codedeploy-push.tmp';
-  var deployFileName = 'gulp-codedeploy-deploy.tmp';
-  var statusFileName = 'gulp-codedeploy-status.tmp';
+  var uploadFileName = 'etc/gulp-codedeploy-push.tmp';
+  var deployFileName = 'etc/gulp-codedeploy-deploy.tmp';
+  var statusFileName = 'etc/gulp-codedeploy-status.tmp';
 
   if (!description) { 
     throw new PluginError(PLUGIN_NAME, "Must supply deployment description using the --description flag argument"); 
