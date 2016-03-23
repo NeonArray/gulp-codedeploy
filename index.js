@@ -11,7 +11,7 @@ module.exports = function (directory, opt) {
 
   'use strict';
 
-  var isProduction = !!(argv.production);
+  var group = argv.group;
   var description = argv.description;
   var uploadFileName = 'etc/gulp-codedeploy-push.tmp';
   var deployFileName = 'etc/gulp-codedeploy-deploy.tmp';
@@ -87,7 +87,7 @@ module.exports = function (directory, opt) {
       'key=' + opt.subdir + opt.fileName + ',bundleType=zip,',
       'eTag="' + etag + '" ',
       '--deployment-config-name CodeDeployDefault.OneAtATime ',
-      '--deployment-group-name ' + groupName + ' ',
+      '--deployment-group-name ' + group + ' ',
       '--description "' + description + '" > ' + deployFileName,
     ].join('');
 
