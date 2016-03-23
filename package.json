@@ -1,14 +1,12 @@
 {
   "name": "gulp-codedeploy",
-  "version": "1.0.0",
-  "description": "",
+  "version": "1.0.1",
+  "description": "Gulp plugin to semi-automate the AWS Code Deploy process",
   "main": "index.js",
-  "scripts": {
-    "test": "echo \"Error: no test specified\" && exit 1"
-  },
   "author": "Aaron Arney <aaron.arney@ocular-rhythm.com>",
   "license": "ISC",
-  "devDependencies": {
-    "gulp-util": "^3.0.7"
+  "dependencies": {
+    "gulp-util": "^3.0.7",
+    "yargs": "^3.8.0"
   }
 }
