@@ -73,9 +73,6 @@ module.exports = function (directory, opt) {
 
 
   function createDeployment() {
-    // If the --production flag is present this will deploy the current
-    // config into the 'production' group / else goes to development
-    var groupName = (isProduction ? 'production' : 'development');
 
     // Parse the eTag from the file created by uploadDeployment
     var etag = getTag(uploadFileName);
