@@ -11,8 +11,16 @@ module.exports = function (directory, opt) {
 
   'use strict';
 
+  // The Code Deploy - deployment group name
   var group = argv.group;
+  
+  // Description of deployment
   var description = argv.description;
+  
+  // Temporary files that store the output of each AWS CLI command
+  // in the future I am going to just store these in variables
+  // on the off-chance I don't - the etc directory needs to at least be
+  // wiped out when the plugin task is complete
   var uploadFileName = 'etc/gulp-codedeploy-push.tmp';
   var deployFileName = 'etc/gulp-codedeploy-deploy.tmp';
   var statusFileName = 'etc/gulp-codedeploy-status.tmp';
@@ -21,14 +29,17 @@ module.exports = function (directory, opt) {
     throw new PluginError(PLUGIN_NAME, "Must supply deployment description using the --description flag argument"); 
   }
 
+  // Pull the deployment-id from the passed file
   function getDeploymentId(file) {
     return new RegExp(/"deploymentId":\s("d-.*")/g).exec(fs.readFileSync(file, 'utf8'))[1];
   }
 
+  // Pull the deployment status from the passed file
   function getDeploymentStatus(file) {
     return new RegExp(/"status":\s(".*")/g).exec(fs.readFileSync(file, 'utf8'))[1];
   }
 
+  // Pull the etag from the passed file
   function getTag(file) {
     return new RegExp(/eTag="([^"]*)"/g).exec(fs.readFileSync(file, 'utf8'))[1];
   }
