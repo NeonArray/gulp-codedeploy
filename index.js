@@ -109,67 +109,9 @@ module.exports = function (directory, opt) {
     })
     .then( function(val) {
       gutil.log('Check status of deployment with - aws deploy get-deployment --deployment-id ' + val);
-      //queueStatus();
     })
     .catch( function(reason) {
       throw new PluginError(PLUGIN_NAME, reason);
     });
   }
-
-
-/*
-  function checkDeployment() {
-
-    var deploy = new Promise( function (resolve, reject) {
-
-      var deploymentID = getDeploymentId('etc/' + deployFileName);
-
-      // Execute the command and upon completion resolve the promise
-      exec('aws deploy get-deployment --deployment-id "' + deploymentID + '" > etc/' + statusFileName,
-        function (err, stdout, stderr) {
-
-          if (err) {
-            throw new PluginError(PLUGIN_NAME, stderr);
-          }
-
-          resolve(getDeploymentStatus('etc/' + statusFileName));
-        }
-      );
-    })
-    .then( function (response) {
-      gutil.log("Promise " + response);
-    })
-    .catch( function (reason) {
-      throw new PluginError(PLUGIN_NAME, reason);
-    });
-  }
-
-
-  function queueStatus() {
-
-    setInterval( function () {
-      gutil.log("Status: " + checkDeployment());
-      switch (checkDeployment()) {
-        case "Created":
-          gutil.log("S: Created");
-        break;
-        case "Success":
-          gutil.log("S: Success");
-          clearInterval(this);
-        break;
-        case "Failed":
-          gutil.log("S: Failed");
-          clearInterval(this);
-        break;
-        case "InProgress":
-          gutil.log("S: In Progress");
-        break;
-        default: 
-          gutil.log("S: Undefined");
-        break;
-      }
-
-    }, 5000);
-  }
-*/
 };
