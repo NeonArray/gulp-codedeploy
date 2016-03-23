@@ -12,6 +12,6 @@ To use, create a gulp task that calls the `deploy` function, passing your source
 	    });
 	  });
 
-Code Deploy deployments require a description. Right now I have it set up so you can pass a description when calling the gulp task, using a `--description` flag.
+Code Deploy deployments require a description. Right now I have it set up so you can pass a description when calling the gulp task, using a `--description` flag. It is also required to set a deployment group name, which can be passed using the `--group` flag.
 
-`gulp deploy --description "Misc Updates"`
+`gulp deploy --description "Misc Updates" --group development`
