@@ -1,0 +1,38 @@
+{
+  "name": "gulp-codedeploy",
+  "version": "1.0.0",
+  "description": "Deploy a package to AWS Code Deploy",
+  "main": "index.js",
+  "directories": {
+    "test": "test"
+  },
+  "scripts": {
+    "test": "mocha --reporter spec"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/ocularrhythm/gulp-codedeploy.git"
+  },
+  "keywords": [
+    "gulp",
+    "codedeploy",
+    "aws",
+    "gulp-codedeploy"
+  ],
+  "author": "Aaron Arney <aaron.arney@ocular-rhythm.com>",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/ocularrhythm/gulp-codedeploy/issues"
+  },
+  "homepage": "https://github.com/ocularrhythm/gulp-codedeploy#readme",
+  "devDependencies": {
+    "chai": "^3.5.0",
+    "mocha": "^2.4.5",
+    "mock-aws": "^1.2.3"
+  },
+  "dependencies": {
+    "aws-sdk": "^2.3.14",
+    "gulp-util": "^3.0.7",
+    "yargs": "^4.7.1"
+  }
+}
