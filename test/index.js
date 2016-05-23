@@ -7,6 +7,7 @@ const argv = require('yargs').argv;
 const assert = require('chai').assert;
 const should = require('chai').should;
 const expect = require('chai').expect;
+const asPromised = require('chai-as-promised');
 const plugin = require('../');
 
 
