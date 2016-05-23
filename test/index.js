@@ -166,7 +166,7 @@ describe('gulp-codedeploy', function () {
 
 
   describe('executeCommand()', function () {
-    let Plugin = new plugin({
+    const Plugin = new plugin({
       appName: "fakeApp",
       bucket: "fakeApp",
       source: 'dist',
