@@ -182,12 +182,25 @@ describe('gulp-codedeploy', function () {
 
       expect(actual).to.be.a('promise');
     });
+  });
 
-    it('should do something with the promise', function () {
-      let result = Plugin.executeCommand();
-      let expected = "";
 
-      return expect(result).to.eventually.be.a('string');
+  describe('constructor()', function () {
+    const Plugin = new plugin({
+      appName: "fakeApp",
+      bucket: "fakeApp",
+      source: 'dist',
+      subdir: "fakeDirectory",
+      fileName: "file.zip",
+      deploymentGroup: "development",
+      defaultDescription: "No description set",
+      deployConfig: 'CodeDeployDefault.OneAtATime'
+    });
+
+    it('should execute the push command on instantiation', function () {
+      let expected = `aws deploy create-deployment --application-name fakeApp --s3-location bucket=fakeApp,key=fakeDirectory/file.zip,bundleType=zip,eTag="8ba1946a3a15fa95566af19328577710" --deployment-group-name development --deployment-config-name CodeDeployDefault.OneAtATime --description "No description set"`;
+      
+      expect(Plugin).to.eql(expected);
     });
   });
 });
