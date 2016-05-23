@@ -13,14 +13,20 @@ class GulpCodeDeploy {
   /**
    * Constructor method
    *
-   * @param   {object}  options  - The options object that is created during plugin instantiation
+   * @param  {object}  options  - The options object that is created during plugin instantiation
    */
   constructor(options) {
     if (!options) {
       throw new gutil.PluginError(PLUGIN_NAME, 'Missing options');
     }
 
-    this.options = options;
+    this._options = options;
+
+    let pushCommand = this.createPushExecutableString();
+
+    this.executeCommand(pushCommand).then(function (data) {
+      console.log(data);
+    });
   }
 
   /**
@@ -29,9 +35,14 @@ class GulpCodeDeploy {
    * @returns   {object}      - The options object
    */
   get getOptions() {
-    return this.options;
+    return this._options;
   }
 
+  executeCommand(command) {
+    return new Promise(function (resolve, reject) {
+      resolve(command);
+    });
+  }
 
   /**
    * Retrieves the eTag from response text sent from AWS after a push
@@ -67,10 +78,10 @@ class GulpCodeDeploy {
   createPushExecutableString() {
     return [
       `aws deploy push`,
-      `--application-name ${this.options.appName}`,
-      `--s3-location s3://${this.options.bucket}/${this.options.subdir}/${this.options.fileName}`,
-      `--description "${this.options.defaultDescription}"`,
-      `--source ${this.options.source}`
+      `--application-name ${this._options.appName}`,
+      `--s3-location s3://${this._options.bucket}/${this._options.subdir}/${this._options.fileName}`,
+      `--description "${this._options.defaultDescription}"`,
+      `--source ${this._options.source}`
     ].join(' ');
   }
 
@@ -89,9 +100,9 @@ class GulpCodeDeploy {
       throw new gutil.PluginError(PLUGIN_NAME, 'Missing arguments in createDeployExecutableString method');
     }
 
-    let base = response.replace(/<deployment-group-name>/g, this.options.deploymentGroup);
-    base = base.replace(/<deployment-config-name>/g, this.options.deployConfig);
-    base = base.replace(/<description>/g, `"${this.options.defaultDescription}"`);
+    let base = response.replace(/<deployment-group-name>/g, this._options.deploymentGroup);
+    base = base.replace(/<deployment-config-name>/g, this._options.deployConfig);
+    base = base.replace(/<description>/g, `"${this._options.defaultDescription}"`);
     return base;
   }
 }
