@@ -68,7 +68,21 @@ class GulpCodeDeploy {
     ].join(' ');
   }
 
+  /**
+   * Takes the response from the push execution and replaces
+   *  <deployment-group-name>
+   *  <deployment-config-name>
+   *  <description>
+   * with data from the options object. Then returns the string.
+   *
+   * @param   {string}  response  - A string that is sent from AWS after the `push` command is executed
+   * @returns {string}            - The command string
+   */
   createDeployExecutableString(response) {
+    if (!response) {
+      throw new gutil.PluginError(PLUGIN_NAME, 'Missing arguments in createDeployExecutableString method');
+    }
+
     let base = response.replace(/<deployment-group-name>/g, this.options.deploymentGroup);
     base = base.replace(/<deployment-config-name>/g, this.options.deployConfig);
     base = base.replace(/<description>/g, `"${this.options.defaultDescription}"`);
