@@ -8,23 +8,23 @@ const assert = require('chai').assert;
 const should = require('chai').should;
 const expect = require('chai').expect;
 const asPromised = require('chai-as-promised');
-const plugin = require('../');
+const codeDeploy = require('../');
 
 
 describe('gulp-codedeploy', function () {
 
-  describe('plugin instantiation', function () {
+  describe('codeDeploy instantiation', function () {
     it('should exist', function () {
-      expect(plugin).to.exist;
+      expect(codeDeploy).to.exist;
     });
 
     it('should be a function', function () {
-      expect(plugin).to.be.a('function');
+      expect(codeDeploy).to.be.a('function');
     });
 
     it('should throw an error if no options are supplied', function () {
       expect((function () {
-        new plugin();
+        new codeDeploy();
       })).to.throw('Missing options');
     });
   });
@@ -32,7 +32,7 @@ describe('gulp-codedeploy', function () {
 
   describe('getTag()', function () {
 
-    const Plugin = new plugin({ });
+    const Plugin = new codeDeploy({ });
     const response = 'aws deploy create-deployment --application-name asi-plm --s3-location bucket=asi-webdev-codedeploy,key=plm/plm-v0.1.0.zip,bundleType=zip,eTag="8ba1946a3a15fa95566af19328577710" --deployment-group-name development --deployment-config-name CodeDeployDefault.OneAtATime --description';
 
     it('should only return the etag', function () {
@@ -55,13 +55,13 @@ describe('gulp-codedeploy', function () {
 
     it('should only return the id', function () {
       let expected = "d-VFY9K81UF";
-      let actual = plugin.getDeploymentId(response);
+      let actual = codeDeploy.getDeploymentId(response);
 
       expect(actual).to.eql(expected);
     });
 
     it('should be a string', function () {
-      let actual = plugin.getDeploymentId(response);
+      let actual = codeDeploy.getDeploymentId(response);
 
       expect(actual).to.be.a('string');
     });
@@ -82,7 +82,7 @@ describe('gulp-codedeploy', function () {
   describe('getOptions()', function () {
 
     it('should return the options property', function () {
-      const Plugin = new plugin({});
+      const Plugin = new codeDeploy({});
       expect(Plugin.getOptions).to.be.a('object');
     });
 
@@ -100,7 +100,7 @@ describe('gulp-codedeploy', function () {
         }
       };
 
-      let actualOptions = new plugin({
+      let actualOptions = new codeDeploy({
         appName: "fakeApp",
         bucket: "fakeApp",
         source: 'dist',
@@ -117,7 +117,7 @@ describe('gulp-codedeploy', function () {
 
 
   describe('getPushExecString()', function () {
-    let Plugin = new plugin({
+    let Plugin = new codeDeploy({
       appName: "fakeApp",
       bucket: "fakeApp",
       source: 'dist',
@@ -145,7 +145,7 @@ describe('gulp-codedeploy', function () {
 
   describe('getDeployExecString()', function () {
     it('returns the deploy command using the options', function () {
-      let Plugin = new plugin({
+      let Plugin = new codeDeploy({
         appName: "fakeApp",
         bucket: "fakeApp",
         source: 'dist',
@@ -166,7 +166,7 @@ describe('gulp-codedeploy', function () {
 
 
   describe('executeCommand()', function () {
-    const Plugin = new plugin({
+    const Plugin = new codeDeploy({
       appName: "fakeApp",
       bucket: "fakeApp",
       source: 'dist',
@@ -186,7 +186,7 @@ describe('gulp-codedeploy', function () {
 
 
   describe('constructor()', function () {
-    const Plugin = new plugin({
+    const Plugin = new codeDeploy({
       appName: "fakeApp",
       bucket: "fakeApp",
       source: 'dist',
