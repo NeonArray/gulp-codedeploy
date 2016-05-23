@@ -13,7 +13,7 @@ class GulpCodeDeploy {
   /**
    * Constructor method
    *
-   * @param  {object}  options  - The options object that is created during plugin instantiation
+   * @param {object} options - The options object that is created during plugin instantiation
    */
   constructor(options) {
 
@@ -37,13 +37,19 @@ class GulpCodeDeploy {
   /**
    * Getter method for options
    *
-   * @returns   {object}      - The options object
+   * @returns {object} - The options object
    */
   get getOptions() {
     return this._options;
   }
 
+
   executeCommand(command) {
+    // This method is going to execute a command
+    // and either resolve or reject the promise
+    // if it rejects, I am going to throw a plugin error
+    // what is done with the returned data will be the
+    // responsibility of another method
     return new Promise(function (resolve, reject) {
       resolve(command);
     });
@@ -52,8 +58,8 @@ class GulpCodeDeploy {
   /**
    * Retrieves the eTag from response text sent from AWS after a push
    *
-   * @param   {string} input  - The response string that is received after executing an upload
-   * @returns {string}        - The eTag value
+   * @param {string} input - The response string that is received after executing an upload
+   * @returns {string} - The eTag value
    */
   getTag(input) {
     // eTag="8ba1946a3a15fa95566af19328577710"
@@ -66,8 +72,8 @@ class GulpCodeDeploy {
    * [1] Parse into JSON
    * [2] return the value *magic*
    *
-   * @param   {string} input  - The response string
-   * @returns {string}        - The deployment id
+   * @param {string} input - The response string
+   * @returns {string} - The deployment id
    */
   static getDeploymentId(input) {
     // { "deploymentId": "d-VFY9K81UF" }
@@ -78,7 +84,7 @@ class GulpCodeDeploy {
   /**
    * Crafts the command as an array, then converts to a string and returns it
    * 
-   * @returns {string}        - The command string
+   * @returns {string} - The command string
    */
   createPushExecutableString() {
     return [
@@ -92,23 +98,23 @@ class GulpCodeDeploy {
 
   /**
    * Takes the response from the push execution and replaces
-   *  <deployment-group-name>
-   *  <deployment-config-name>
-   *  <description>
+   *    <deployment-group-name>
+   *    <deployment-config-name>
+   *    <description>
    * with data from the options object. Then returns the string.
    *
-   * @param   {string}  response  - A string that is sent from AWS after the `push` command is executed
-   * @returns {string}            - The command string
+   * @param {string} response - A string that is sent from AWS after the `push` command is executed
+   * @returns {string} - The command string
    */
   createDeployExecutableString(response) {
     if (!response) {
       throw new gutil.PluginError(PLUGIN_NAME, 'Missing arguments in createDeployExecutableString method');
     }
 
-    let base = response.replace(/<deployment-group-name>/g, this._options.deploymentGroup);
-    base = base.replace(/<deployment-config-name>/g, this._options.deployConfig);
-    base = base.replace(/<description>/g, `"${this._options.defaultDescription}"`);
-    return base;
+    let commandString = response.replace(/<deployment-group-name>/g, this._options.deploymentGroup);
+    commandString = commandString.replace(/<deployment-config-name>/g, this._options.deployConfig);
+    commandString = commandString.replace(/<description>/g, `"${this._options.defaultDescription}"`);
+    return commandString;
   }
 }
 
