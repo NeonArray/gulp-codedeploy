@@ -23,9 +23,15 @@ class GulpCodeDeploy {
     this.options = options;
   }
 
-  getOptions() {
+  /**
+   * Getter method for options
+   *
+   * @returns   {object}      - The options object
+   */
+  get getOptions() {
     return this.options;
   }
+
 
   /**
    * Retrieves the eTag from response text sent from AWS after a push
