@@ -10,6 +10,11 @@ const PLUGIN_NAME = 'gulp-codedeploy';
 
 class GulpCodeDeploy {
 
+  /**
+   * Constructor method
+   *
+   * @param   {object}  options  - The options object that is created during plugin instantiation
+   */
   constructor(options) {
     if (!options) {
       throw new gutil.PluginError(PLUGIN_NAME, 'Missing options');
@@ -48,6 +53,11 @@ class GulpCodeDeploy {
     return id.deploymentId; // [2]
   }
 
+  /**
+   * Crafts the command as an array, then converts to a string and returns it
+   * 
+   * @returns {string}        - The command string
+   */
   createPushExecutableString() {
     return [
       `aws deploy push`,
