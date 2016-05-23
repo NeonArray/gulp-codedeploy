@@ -117,18 +117,24 @@ describe('gulp-codedeploy', function () {
 
 
   describe('getPushExecString()', function () {
+    let Plugin = new plugin({
+      appName: "fakeApp",
+      bucket: "fakeApp",
+      source: 'dist',
+      subdir: "fakeDirectory",
+      fileName: "file.zip",
+      deploymentGroup: "development",
+      defaultDescription: "No description set",
+      deployConfig: 'CodeDeployDefault.OneAtATime'
+    });
+
+    it('returns an error if no argument is given', function () {
+      expect((function () {
+        Plugin.createDeployExecutableString();
+      })).to.throw('Missing arguments in createDeployExecutableString method');
+    });
+
     it('returns the push command using the options', function () {
-      let Plugin = new plugin({
-        appName: "fakeApp",
-        bucket: "fakeApp",
-        source: 'dist',
-        subdir: "fakeDirectory",
-        fileName: "file.zip",
-        deploymentGroup: "development",
-        defaultDescription: "No description set",
-        deployConfig: 'CodeDeployDefault.OneAtATime'
-      });
-   
       let command = Plugin.createPushExecutableString();
       let expected = `aws deploy push --application-name fakeApp --s3-location s3://fakeApp/fakeDirectory/file.zip --description "No description set" --source dist`;
 
