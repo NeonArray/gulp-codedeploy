@@ -83,12 +83,12 @@ describe('gulp-codedeploy', function () {
 
     it('should return the options property', function () {
       const Plugin = new plugin({});
-      expect(Plugin.options).to.be.a('object');
+      expect(Plugin.getOptions).to.be.a('object');
     });
 
     it('should apply options to the options property', function () {
       let expectedOptions = {
-        options: {
+        _options: {
           appName: "fakeApp",
           bucket: "fakeApp",
           source: 'dist',
