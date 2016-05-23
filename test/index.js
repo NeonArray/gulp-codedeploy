@@ -163,4 +163,31 @@ describe('gulp-codedeploy', function () {
       expect(command).to.eql(expected);
     });
   });
+
+
+  describe('executeCommand()', function () {
+    let Plugin = new plugin({
+      appName: "fakeApp",
+      bucket: "fakeApp",
+      source: 'dist',
+      subdir: "fakeDirectory",
+      fileName: "file.zip",
+      deploymentGroup: "development",
+      defaultDescription: "No description set",
+      deployConfig: 'CodeDeployDefault.OneAtATime'
+    });
+
+    it('should return a promise', function () {
+      let actual = Plugin.executeCommand();
+
+      expect(actual).to.be.a('promise');
+    });
+
+    it('should do something with the promise', function () {
+      let result = Plugin.executeCommand();
+      let expected = "";
+
+      return expect(result).to.eventually.be.a('string');
+    });
+  });
 });
