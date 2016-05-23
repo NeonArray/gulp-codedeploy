@@ -16,6 +16,7 @@ class GulpCodeDeploy {
    * @param  {object}  options  - The options object that is created during plugin instantiation
    */
   constructor(options) {
+
     if (!options) {
       throw new gutil.PluginError(PLUGIN_NAME, 'Missing options');
     }
@@ -24,8 +25,12 @@ class GulpCodeDeploy {
 
     let pushCommand = this.createPushExecutableString();
 
+    // Execute the initial push
+    // then -> use the response to craft the deploy command
+    // then -> execute the deploy command
     this.executeCommand(pushCommand).then(function (data) {
-      console.log(data);
+      // how do I test this?
+      // I would need to execute a command against a sandboxed AWS API?
     });
   }
 
