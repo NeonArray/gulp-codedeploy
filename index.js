@@ -22,16 +22,6 @@ class GulpCodeDeploy {
     }
 
     this._options = options;
-
-    let pushCommand = this.createPushExecutableString();
-
-    // Execute the initial push
-    // then -> use the response to craft the deploy command
-    // then -> execute the deploy command
-    this.executeCommand(pushCommand).then(function (data) {
-      // how do I test this?
-      // I would need to execute a command against a sandboxed AWS API?
-    });
   }
 
   /**
