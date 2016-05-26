@@ -33,12 +33,6 @@ class GulpCodeDeploy {
     return this._options;
   }
 
-  executeCommand(command) {
-    return new Promise(function (resolve, reject) {
-      resolve(command);
-    });
-  }
-
   /**
    * Retrieves the eTag from response text sent from AWS after a push
    *
