@@ -165,7 +165,7 @@ describe('gulp-codedeploy', function () {
   });
 
 
-  describe('executeCommand()', function () {
+  describe('initiateS3Upload()', function () {
     const Plugin = new codeDeploy({
       appName: "fakeApp",
       bucket: "fakeApp",
