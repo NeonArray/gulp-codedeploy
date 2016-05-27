@@ -197,10 +197,10 @@ describe('gulp-codedeploy', function () {
       deployConfig: 'CodeDeployDefault.OneAtATime'
     });
 
-    it('should execute the push command on instantiation', function () {
-      let expected = `aws deploy create-deployment --application-name fakeApp --s3-location bucket=fakeApp,key=fakeDirectory/file.zip,bundleType=zip,eTag="8ba1946a3a15fa95566af19328577710" --deployment-group-name development --deployment-config-name CodeDeployDefault.OneAtATime --description "No description set"`;
-      
-      expect(Plugin).to.eql(expected);
+    it('should be a promise', function () {
+      let actual = Plugin.executeCommand();
+
+      expect(actual).to.be.a('promise');
     });
   });
 });
