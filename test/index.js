@@ -178,14 +178,14 @@ describe('gulp-codedeploy', function () {
     });
 
     it('should return a promise', function () {
-      let actual = Plugin.executeCommand();
-
+      let actual = Plugin.initiateS3Upload();
+      
       expect(actual).to.be.a('promise');
     });
   });
 
 
-  describe('constructor()', function () {
+  describe('executeCommand()', function () {
     const Plugin = new codeDeploy({
       appName: "fakeApp",
       bucket: "fakeApp",
